@@ -1,0 +1,28 @@
+1. создать БД
+create database orders_test
+2. создать 3 таблицы
+CREATE TABLE customer (
+id INT PRIMARY KEY,
+name_short TEXT NOT NULL,
+name_full TEXT NOT NULL
+);
+
+CREATE TABLE tools (
+id INT PRIMARY KEY,
+license_name TEXT NOT NULL
+);
+CREATE TABLE licenses (
+id INT PRIMARY KEY,
+customerId INT NOT NULL REFERENCES customer(Id) ON UPDATE CASCADE ON DELETE CASCADE,
+toolId INT NOT NULL REFERENCES tools(Id) ON UPDATE CASCADE ON DELETE CASCADE,
+licenses_date_start date NOT NULL,
+licenses_date_end date NOT NULL,
+key_techsupport_name TEXT NOT NULL,
+key_date_end date NOT NULL
+);
+3. заполняем в ручную в pgadmin 4
+
+2. получить все данные
+select * from licenses
+join customer on customer.id = licenses.customerid
+join tools on tools.id = licenses.toolid
